@@ -1,0 +1,37 @@
+!!! 5
+html(lang="es")
+  head
+    title Servicio Neutrón
+    link(rel="stylesheet", href="styles/bootstrap/init.css")
+    link(rel="stylesheet", href="styles/prettify.css")
+    link(rel="stylesheet", href="styles/init.css")
+    script(data-main="scripts/app." + jsApp, type="text/javascript", src="scripts/vendor/require-jquery.js")
+    script(type="text/javascript", src="http://localhost:8090/socket.io/socket.io.js")
+
+  body
+    .navbar.navbar-fixed-top(style="z-index: 4;position:absolute;")
+      .navbar-inner
+        .container
+          div.nav-collapse
+            ul.nav
+              li
+                a(href="#") Servicio Neutrón
+               
+    .container!=body
+      footer.footer
+        p.pull-right 
+        p.pull-left
+          a(href="http://arduino.cc")
+            img(src="images/arduino.jpg", style="position: relative; margin-right: 18px; top: 5px; margin-left: 4px; border-radius: 3px;")
+        p 
+          a(href="https://semu.github.com/noduino") mech-lab
+          |  projecto fundado en  2012 y mantenido por
+          a(href="http://github.com/coldkiller")  Marcos Clemente 
+          | .
+        p Todo el codigo del projecto noduino esta registrado con licensia 
+          a(href="http://www.opensource.org/licenses/mit-license.php") MIT License
+        p Iconos de 
+          a(href="http://glyphicons.com/") Glyphicons Free
+          | . Plantilla basada en 
+          a(href="http://twitter.github.com/bootstrap/") twitter bootstrap framework
+          | . 

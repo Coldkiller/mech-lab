@@ -1,0 +1,77 @@
+section#homeContent
+  .page-header
+    h1 Mech-lab 0.0.1
+      small  Servicio de injectores
+  .row
+    .span5
+      p Por favor siga las instrucciones para conectar el
+        strong  dispositivo
+        |  primero haga click en  
+        strong Conectar
+        |  Espere algunos segundos, si la conexion no es establecida reintente presionando 
+        strong  F5
+        p
+        strong Seleccione el numero  de injector que desea accionar.
+        |  Si aparece un problema persistente llame al administrador del sistema 
+  .row.example
+    .span9#e2-exampleConnection
+      p
+        a.btn(href="#")#e2-buttonConnect
+          i.icon-refresh
+          |  Conectar 
+      .alert.alert-info Por favor conecte el dispositivo pulsando en el boton.
+      .alert.hide.alert-error Imposible conectar con el dispositivo!
+      .alert.hide.alert-success Conexion establecida!
+    .span12#e2-secondStep
+      p
+        select.span2#e2-pinValue
+          option(value=13) Injector: 1
+          option(value=12) Injector: 2
+          option(value=11) Injector: 3
+          option(value=10) Injector: 4
+          option(value=09) Injector: 0
+        input.span3#e2-interval(type="text",placeholder="Intervalo en Milisegundos") 
+        |  
+        a.btn(href="#", style="margin-top: 1px;")#e2-buttonStart
+          i.icon-retweet
+          |  Iniciar injector 
+        |  
+        a.btn(href="#", style="margin-top: 1px;")#e2-buttonStop
+          i.icon-off
+          |  Detener
+        |          
+        label.label#e2-status(style="position: relative; top: -2px;") Apagado.
+      .alert.hide.alert-info Por favor conecte el dispositivo pulsando en el boton.
+      .alert.hide.alert-error Conecte el dispositivo primero!
+      .alert.hide.alert-success Conexion establecida!
+     .page-header
+       h1 HTML5 WebSocket Interface 
+       small Using Socket.IO and Node.js
+       .row.interface#controls
+      .span12
+       .btn-toolbar(style="margin-bottom: 9px")
+         .btn-group
+           a.btn(href="#")#connect
+             i.icon-refresh
+             |  Connect to Arduino
+         .btn-group                  
+           input.knob#interval-slide(type="range", min="0", max="255", step="1", value="0")
+           input.dial(type='text', value='75')
+             script(type='text/javascript').
+              $(function() {
+              $(".dial").knob();
+              });
+
+  .row.info#connection-status
+    .span12
+      .alert.alert-info Please connect to your Arduino using the button.
+      .alert.hide.alert-error Unable to connect to Arduino!
+      .alert.hide.alert-success Connection to Arduino established!
+  .row.debug
+    .span12
+      pre#connection-log
+        .item $ > Not connected to noduino!
+  .row
+    .span9 
+     .btn-group                  
+      input.knob(value="35" data-fgcolor="#344DC9" data-anglearc="250" data-angleoffset="-125" style="width: 104px;  height: 66px;  margin-top: 66px; margin-left: -152px; border: 0px none; background: none repeat scroll 0% 0% transparent; font: bold 40px Arial; text-align: center; color: rgb(102, 238, 102); padding: 0px;")
