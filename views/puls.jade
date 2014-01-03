@@ -1,0 +1,69 @@
+header#overview
+  .page-header
+    h1 Servico de revision
+      small  Control de velocidad y estabilidad
+  .row
+    .span12
+  .page-header
+    h1 Interface de conexion a traves de sockets
+      small Estado de conexion:
+  .row.interface#controls
+    .span12
+      .btn-toolbar(style="margin-bottom: 9px")
+        .btn-group
+          a.btn(href="#")#connect
+            i.icon-refresh
+            |  Conexion establecida       
+        |   
+        .btn-group
+          .btn.btn-dir#btn-04 &laquo;&laquo;
+        |  
+        .btn-group#inys
+          a.btn.disabled#iny-1 #1
+          a.btn.disabled#iny-2 #2
+          a.btn.disabled#iny-3 #3
+          a.btn.disabled#iny-4 #4
+        | 
+        .btn-group           
+          .btn.btn-dir#btn-02 &raquo;&raquo;
+        .btn-group                  
+          input.range#interval-slide(type="range", min="0", max="1024", step="1", value="320", disabled="disabled")
+          input.interval#interval-value(type="input", value="320ms",disabled="disabled")
+  .row.info#connection-status
+    .span12
+      .alert.alert-info Please connect to your Arduino using the button.
+      .alert.hide.alert-error Unable to connect to Arduino!
+      .alert.hide.alert-success Connection to Arduino established!
+  .row.debug
+    .span12
+      pre#connection-log
+        .item $ > Not connected to noduino!
+  .row
+    .span12
+      p This interface is defined in 
+        code views/example-walkLED.jade
+        | , all needed JavaScript is stored in 
+        code public/scripts/app.walkLED.js
+        |  using 
+        a(href="http://requirejs.org/") RequireJS
+        |  for loading dependencies. Please see RequireJS's manual for loading your scripts. Logging is done with the customized 
+        code Logger.HTML.js
+        |  in 
+        code scripts/libs/
+        | .
+        
+  .page-header
+    h1 Just Node.js 
+      small Access Arduino components without HTML5 interface 
+  .row
+    .span12
+      p The wiring above can be used to test the included HTML web interface and the Node.js access as well. Connect your Arduino to you computer and start catching events happening on your Arduino with JavaScript. For sure you can easily fire events on your Arduino too!
+      pre
+        | $ > git clone git@github.com:semu/noduino.git
+        | $ > cd noduino/
+        | $ > git submodule update --init
+        | $ > npm install
+        | $ > cd examples/
+        | $ > node test.walkLED.js
+      p After starting <code>test.walkLED.js</code> you are able to push the buttons in your wiring and see the LEDs blinking as you commanded. Use the analog input for changing walking speed. Binding events work as you might know from using Mootools, use <code>AnalogInput.on()</code>, <code>LED.on()</code> and <code>Button.on()</code> to bind custom functions to events like <em>on</em>, <em>off</em>, <em>change</em>, <em>push</em> or <em>release</em>. Not all functions are documented or even demonstrated with an example application, for getting used to noduino make sure to have a look at <code>test.blinkLED.js</code> and <code>test.readAnalogIn.js</code>.
+        

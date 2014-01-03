@@ -30,7 +30,13 @@ section#homeContent
           option(value=11) Injector: 3
           option(value=10) Injector: 4
           option(value=09) Injector: 0
-        input.span3#e2-interval(type="text",placeholder="Intervalo en Milisegundos") 
+        input.knob#e2-interval(type="text",placeholder="Intervalo en Milisegundos", data-width="150" data-fgColor="#C95547" data-skin="tron" data-thickness=".1" data-angleOffset="180") 
+        | 
+        input.knob#e2-interval(type="text",placeholder="Intervalo en Milisegundos", data-width="150" data-fgColor="#5BB933" data-skin="tron" data-thickness=".1" data-angleOffset="180") 
+        | 
+        input.knob#e2-interval(type="text",placeholder="Intervalo en Milisegundos", data-width="150" data-fgColor="#2B4FDB" data-skin="tron" data-thickness=".1" data-angleOffset="180") 
+        | 
+        input.knob#e2-interval(type="text",placeholder="Intervalo en Milisegundos", data-width="150" data-fgColor="#A267D4" data-skin="tron" data-thickness=".1" data-angleOffset="180") 
         |  
         a.btn(href="#", style="margin-top: 1px;")#e2-buttonStart
           i.icon-retweet
@@ -44,34 +50,92 @@ section#homeContent
       .alert.hide.alert-info Por favor conecte el dispositivo pulsando en el boton.
       .alert.hide.alert-error Conecte el dispositivo primero!
       .alert.hide.alert-success Conexion establecida!
-     .page-header
-       h1 HTML5 WebSocket Interface 
-       small Using Socket.IO and Node.js
-       .row.interface#controls
-      .span12
-       .btn-toolbar(style="margin-bottom: 9px")
-         .btn-group
-           a.btn(href="#")#connect
-             i.icon-refresh
-             |  Connect to Arduino
-         .btn-group                  
-           input.knob#interval-slide(type="range", min="0", max="255", step="1", value="0")
-           input.dial(type='text', value='75')
-             script(type='text/javascript').
-              $(function() {
-              $(".dial").knob();
-              });
 
-  .row.info#connection-status
-    .span12
-      .alert.alert-info Please connect to your Arduino using the button.
-      .alert.hide.alert-error Unable to connect to Arduino!
-      .alert.hide.alert-success Connection to Arduino established!
-  .row.debug
-    .span12
-      pre#connection-log
-        .item $ > Not connected to noduino!
-  .row
-    .span9 
-     .btn-group                  
-      input.knob(value="35" data-fgcolor="#344DC9" data-anglearc="250" data-angleoffset="-125" style="width: 104px;  height: 66px;  margin-top: 66px; margin-left: -152px; border: 0px none; background: none repeat scroll 0% 0% transparent; font: bold 40px Arial; text-align: center; color: rgb(102, 238, 102); padding: 0px;")
+script .
+ $(function($) {
+
+                $(".knob").knob({
+                    change : function (value) {
+                        //console.log("change : " + value);
+                    },
+                    release : function (value) {
+                        //console.log(this.$.attr('value'));
+                        console.log("release : " + value);
+                    },
+                    cancel : function () {
+                        console.log("cancel : ", this);
+                    },
+                    draw : function () {
+
+                        // "tron" case
+                        if(this.$.data('skin') == 'tron') {
+
+                            var a = this.angle(this.cv)  // Angle
+                                , sa = this.startAngle          // Previous start angle
+                                , sat = this.startAngle         // Start angle
+                                , ea                            // Previous end angle
+                                , eat = sat + a                 // End angle
+                                , r = 1;
+
+                            this.g.lineWidth = this.lineWidth;
+
+                            this.o.cursor
+                                && (sat = eat - 0.3)
+                                && (eat = eat + 0.3);
+
+                            if (this.o.displayPrevious) {
+                                ea = this.startAngle + this.angle(this.v);
+                                this.o.cursor
+                                    && (sa = ea - 0.3)
+                                    && (ea = ea + 0.3);
+                                this.g.beginPath();
+                                this.g.strokeStyle = this.pColor;
+                                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                                this.g.stroke();
+                            }
+
+                            this.g.beginPath();
+                            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                            this.g.stroke();
+
+                            this.g.lineWidth = 2;
+                            this.g.beginPath();
+                            this.g.strokeStyle = this.o.fgColor;
+                            this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                            this.g.stroke();
+
+                            return false;
+                        }
+                    }
+                });
+
+                // Example of infinite knob, iPod click wheel
+                var v, up=0,down=0,i=0
+                    ,$idir = $("div.idir")
+                    ,$ival = $("div.ival")
+                    ,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+                    ,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+                $("input.infinite").knob(
+                                    {
+                                    min : 0
+                                    , max : 20
+                                    , stopper : false
+                                    , change : function () {
+                                                    if(v > this.cv){
+                                                        if(up){
+                                                            decr();
+                                                            up=0;
+                                                        }else{up=1;down=0;}
+                                                    } else {
+                                                        if(v < this.cv){
+                                                            if(down){
+                                                                incr();
+                                                                down=0;
+                                                            }else{down=1;up=0;}
+                                                        }
+                                                    }
+                                                    v = this.cv;
+                                                }
+                                    });
+            });
