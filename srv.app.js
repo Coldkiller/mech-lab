@@ -17,10 +17,15 @@ define(['kickstart', 'module', 'path', 'fs'], function (kickstart, module, path,
    * Catch request for serving home page
    */
   srv.all('/', function(req, res) {
-    res.render('home', {jsApp: 'main', active: 'home', title: 'noduino'});
+    res.render('home', {jsApp: 'main', active: 'home', title: 'Servicio Neutron'});
   });
 
+// ruta pulsar
 
+srv.all('/pulsar.html', function(req, res) {
+	res.render('pulsar', {jsApp: 'pulsar', active: 'pulsar', title: 'MechLab', 'examples':examples});
+
+});
 
 
   return {'kickstart': kickstart, 'srv': srv};
